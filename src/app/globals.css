@@ -1,26 +1,225 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-hanken);
   --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-hanken);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --background: #f3f0e9;
+  --foreground: #373A40;
+  --card: #ffffff;
+  --card-foreground: #373A40;
+  --popover: #ffffff;
+  --popover-foreground: #373A40;
+  --primary: #E62B28;
+  --primary-foreground: #ffffff;
+  --secondary: #f8f7f4;
+  --secondary-foreground: #373A40;
+  --muted: #f8f7f4;
+  --muted-foreground: #6b6e73;
+  --accent: rgba(242, 209, 46, 0.1);
+  --accent-foreground: #373A40;
+  --destructive: #E62B28;
+  --border: #000000;
+  --input: #000000;
+  --ring: #E62B28;
+  --chart-1: #E62B28;
+  --chart-2: #f2d12e;
+  --chart-3: #373A40;
+  --chart-4: #6b6e73;
+  --chart-5: #f3f0e9;
+  --radius: 0.3125rem;
+  --sidebar: #f8f7f4;
+  --sidebar-foreground: #373A40;
+  --sidebar-primary: #E62B28;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: rgba(242, 209, 46, 0.1);
+  --sidebar-accent-foreground: #373A40;
+  --sidebar-border: #000000;
+  --sidebar-ring: #E62B28;
+}
+
+.dark {
+  --background: #1a1a1a;
+  --foreground: #f3f0e9;
+  --card: #2a2a2a;
+  --card-foreground: #f3f0e9;
+  --popover: #2a2a2a;
+  --popover-foreground: #f3f0e9;
+  --primary: #E62B28;
+  --primary-foreground: #ffffff;
+  --secondary: #333333;
+  --secondary-foreground: #f3f0e9;
+  --muted: #333333;
+  --muted-foreground: #a0a0a0;
+  --accent: rgba(242, 209, 46, 0.15);
+  --accent-foreground: #f3f0e9;
+  --destructive: #E62B28;
+  --border: #444444;
+  --input: #444444;
+  --ring: #E62B28;
+  --chart-1: #E62B28;
+  --chart-2: #f2d12e;
+  --chart-3: #f3f0e9;
+  --chart-4: #a0a0a0;
+  --chart-5: #1a1a1a;
+  --sidebar: #2a2a2a;
+  --sidebar-foreground: #f3f0e9;
+  --sidebar-primary: #E62B28;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: rgba(242, 209, 46, 0.15);
+  --sidebar-accent-foreground: #f3f0e9;
+  --sidebar-border: #444444;
+  --sidebar-ring: #E62B28;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.dotted-bg {
+  background-image: radial-gradient(circle, currentColor 1px, transparent 1px);
+  background-size: 22px 22px;
+  opacity: 0.08;
+}
+
+.font-heading {
+  font-family: var(--font-hanken);
+  letter-spacing: -0.035em;
+}
+
+/* editorial uppercase mono label */
+.eyebrow {
+  font-family: var(--font-geist-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* number marker for sections / lists */
+.index-num {
+  font-family: var(--font-hanken);
+  font-variant-numeric: lining-nums tabular-nums;
+  letter-spacing: -0.03em;
+}
+
+/* geocod-style yellow-tinted bordered chip/button */
+.btn-geo {
+  background-color: rgba(242, 209, 46, 0.1);
+  border: 1px solid var(--foreground);
+  border-radius: 5px;
+  transition: background-color 0.2s ease;
+}
+.btn-geo:hover {
+  background-color: rgba(242, 209, 46, 0.22);
+}
+
+/* subtle hover lift used on interactive cards */
+.lift {
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.lift:hover {
+  transform: translateY(-4px);
+}
+
+/* animated underline link */
+.link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 1px;
+  transition: background-size 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.link-underline:hover {
+  background-size: 100% 1px;
+}
+
+/* card glow effect on hover */
+.card-glow {
+  position: relative;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.card-glow:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px -8px rgba(230, 43, 40, 0.15),
+    0 0 0 1px rgba(230, 43, 40, 0.1);
+}
+
+/* gradient text animation */
+.gradient-text {
+  background: linear-gradient(
+    135deg,
+    var(--foreground) 0%,
+    var(--primary) 50%,
+    var(--foreground) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-shift 4s ease-in-out infinite;
+}
+
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% center;
+  }
+  50% {
+    background-position: 100% center;
+  }
 }
