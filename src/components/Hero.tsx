@@ -16,6 +16,7 @@ export default function Hero() {
 
   return (
     <section className="relative overflow-hidden pt-32 pb-16 sm:pt-40">
+      <div className="absolute inset-0 dotted-bg" />
       <div className="absolute -top-32 -right-32 w-[34rem] h-[34rem] bg-primary/5 rounded-full blur-3xl pointer-events-none" />
       <motion.div
         animate={{
