@@ -9,6 +9,8 @@ import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
+const basePath = process.env.NODE_ENV === 'production' ? '/sharun-portfolio-v1' : '';
+
 const projects = [
   {
     id: "01",
@@ -23,9 +25,9 @@ const projects = [
       { icon: "award" as const, value: "Biocon", label: "Enterprise customer landed" },
     ],
     images: [
-      { src: "/sharun-portfolio-v1/images/enclouden_1.jpeg", flipped: false },
-      { src: "/sharun-portfolio-v1/images/enclouden_2.jpeg", flipped: true },
-      { src: "/sharun-portfolio-v1/images/enclouden_3.jpeg", flipped: false },
+      { src: `${basePath}/images/enclouden_1.jpeg`, flipped: false },
+      { src: `${basePath}/images/enclouden_2.jpeg`, flipped: true },
+      { src: `${basePath}/images/enclouden_3.jpeg`, flipped: false },
     ],
   },
   {
@@ -41,9 +43,9 @@ const projects = [
       { icon: "award" as const, value: "Aditya Birla", label: "Largest customer secured" },
     ],
     images: [
-      { src: "/sharun-portfolio-v1/images/corestrat_1.jpeg", flipped: false },
-      { src: "/sharun-portfolio-v1/images/corestrat_2.jpeg", flipped: false },
-      { src: "/sharun-portfolio-v1/images/corestrat_3.jpeg", flipped: false },
+      { src: `${basePath}/images/corestrat_1.jpeg`, flipped: false },
+      { src: `${basePath}/images/corestrat_2.jpeg`, flipped: false },
+      { src: `${basePath}/images/corestrat_3.jpeg`, flipped: false },
     ],
   },
   {
@@ -59,9 +61,9 @@ const projects = [
       { icon: "award" as const, value: "Cisco", label: "Converted from the beta program" },
     ],
     images: [
-      { src: "/sharun-portfolio-v1/images/aisepedia_1.jpeg", flipped: false },
-      { src: "/sharun-portfolio-v1/images/aisepedia_2.jpeg", flipped: false },
-      { src: "/sharun-portfolio-v1/images/aisepedia_3.jpeg", flipped: false },
+      { src: `${basePath}/images/aisepedia_1.jpeg`, flipped: false },
+      { src: `${basePath}/images/aisepedia_2.jpeg`, flipped: false },
+      { src: `${basePath}/images/aisepedia_3.jpeg`, flipped: false },
     ],
   },
 ];
