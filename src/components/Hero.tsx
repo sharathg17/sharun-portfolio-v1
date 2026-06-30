@@ -61,22 +61,8 @@ export default function Hero() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease }}
-          className="flex items-center gap-3 mb-10"
+          className="mb-10"
         >
-          <motion.span
-            animate={{
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            className="relative flex h-2 w-2"
-          >
-            <span className="absolute inline-flex h-full w-full rounded-full bg-primary opacity-60 animate-ping" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
-          </motion.span>
           <motion.span
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
