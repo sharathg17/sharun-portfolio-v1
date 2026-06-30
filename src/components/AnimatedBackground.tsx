@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 export default function AnimatedBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isVisible, setIsVisible] = useState(true);
-  const animationRef = useRef<number>();
+  const animationRef = useRef<number | undefined>(undefined);
 
   useEffect(() => {
     const canvas = canvasRef.current;
