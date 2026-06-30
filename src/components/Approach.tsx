@@ -129,17 +129,6 @@ export default function Approach() {
               </motion.div>
             ))}
           </div>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="text-center text-muted-foreground mt-12 max-w-2xl mx-auto"
-          >
-            Like a honeycomb, no single cell carries the system alone — the
-            strength is in how they connect.
-          </motion.p>
         </div>
       </div>
     </section>
