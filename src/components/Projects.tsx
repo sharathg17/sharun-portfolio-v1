@@ -23,9 +23,9 @@ const projects = [
       { icon: "award" as const, value: "Biocon", label: "Enterprise customer landed" },
     ],
     images: [
-      { src: "/images/enclouden_1.jpeg", flipped: false },
-      { src: "/images/enclouden_2.jpeg", flipped: true },
-      { src: "/images/enclouden_3.jpeg", flipped: false },
+      { src: "/sharun-portfolio-v1/images/enclouden_1.jpeg", flipped: false },
+      { src: "/sharun-portfolio-v1/images/enclouden_2.jpeg", flipped: true },
+      { src: "/sharun-portfolio-v1/images/enclouden_3.jpeg", flipped: false },
     ],
   },
   {
@@ -41,9 +41,9 @@ const projects = [
       { icon: "award" as const, value: "Aditya Birla", label: "Largest customer secured" },
     ],
     images: [
-      { src: "/images/corestrat_1.jpeg", flipped: false },
-      { src: "/images/corestrat_2.jpeg", flipped: false },
-      { src: "/images/corestrat_3.jpeg", flipped: false },
+      { src: "/sharun-portfolio-v1/images/corestrat_1.jpeg", flipped: false },
+      { src: "/sharun-portfolio-v1/images/corestrat_2.jpeg", flipped: false },
+      { src: "/sharun-portfolio-v1/images/corestrat_3.jpeg", flipped: false },
     ],
   },
   {
@@ -59,9 +59,9 @@ const projects = [
       { icon: "award" as const, value: "Cisco", label: "Converted from the beta program" },
     ],
     images: [
-      { src: "/images/aisepedia_1.jpeg", flipped: false },
-      { src: "/images/aisepedia_2.jpeg", flipped: false },
-      { src: "/images/aisepedia_3.jpeg", flipped: false },
+      { src: "/sharun-portfolio-v1/images/aisepedia_1.jpeg", flipped: false },
+      { src: "/sharun-portfolio-v1/images/aisepedia_2.jpeg", flipped: false },
+      { src: "/sharun-portfolio-v1/images/aisepedia_3.jpeg", flipped: false },
     ],
   },
 ];
