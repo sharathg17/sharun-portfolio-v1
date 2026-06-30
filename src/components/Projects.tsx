@@ -22,7 +22,11 @@ const projects = [
       { icon: "users" as const, value: "30%", label: "Growth in sales lead funnel" },
       { icon: "award" as const, value: "Biocon", label: "Enterprise customer landed" },
     ],
-    images: ["/images/enclouden_1.jpeg", "/images/enclouden_2.jpeg", "/images/enclouden_3.jpeg"],
+    images: [
+      { src: "/images/enclouden_1.jpeg", flipped: false },
+      { src: "/images/enclouden_2.jpeg", flipped: true },
+      { src: "/images/enclouden_3.jpeg", flipped: false },
+    ],
   },
   {
     id: "02",
@@ -36,7 +40,11 @@ const projects = [
       { icon: "rocket" as const, value: "Culture", label: "Promoted as core to the brand" },
       { icon: "award" as const, value: "Aditya Birla", label: "Largest customer secured" },
     ],
-    images: ["/images/corestrat_1.jpeg", "/images/corestrat_2.jpeg", "/images/corestrat_3.jpeg"],
+    images: [
+      { src: "/images/corestrat_1.jpeg", flipped: false },
+      { src: "/images/corestrat_2.jpeg", flipped: false },
+      { src: "/images/corestrat_3.jpeg", flipped: false },
+    ],
   },
   {
     id: "03",
@@ -50,12 +58,29 @@ const projects = [
       { icon: "zap" as const, value: "250+", label: "Beta users in 2 months" },
       { icon: "award" as const, value: "Cisco", label: "Converted from the beta program" },
     ],
-    images: ["/images/aisepedia_1.jpeg", "/images/aisepedia_2.jpeg", "/images/aisepedia_3.jpeg"],
+    images: [
+      { src: "/images/aisepedia_1.jpeg", flipped: false },
+      { src: "/images/aisepedia_2.jpeg", flipped: false },
+      { src: "/images/aisepedia_3.jpeg", flipped: false },
+    ],
   },
 ];
 
 export default function Projects() {
   const [expandedImage, setExpandedImage] = useState<string | null>(null);
+
+  // Helper function to find current project and image index
+  const findImageContext = (imageSrc: string) => {
+    for (const project of projects) {
+      if (project.images) {
+        const index = project.images.findIndex(img => img.src === imageSrc);
+        if (index !== -1) {
+          return { project, index };
+        }
+      }
+    }
+    return null;
+  };
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -66,18 +91,15 @@ export default function Projects() {
 
       if (!expandedImage) return;
 
-      // Find the project and image index
-      for (const project of projects) {
-        if (project.images && project.images.includes(expandedImage)) {
-          const currentIndex = project.images.indexOf(expandedImage);
-          
-          if (e.key === "ArrowLeft" && currentIndex > 0) {
-            setExpandedImage(project.images[currentIndex - 1]);
-          } else if (e.key === "ArrowRight" && currentIndex < project.images.length - 1) {
-            setExpandedImage(project.images[currentIndex + 1]);
-          }
-          break;
-        }
+      const context = findImageContext(expandedImage);
+      if (!context) return;
+
+      const { project, index } = context;
+      
+      if (e.key === "ArrowLeft" && index > 0) {
+        setExpandedImage(project.images[index - 1].src);
+      } else if (e.key === "ArrowRight" && index < project.images.length - 1) {
+        setExpandedImage(project.images[index + 1].src);
       }
     };
 
@@ -151,12 +173,12 @@ export default function Projects() {
                     {project.images.map((image, i) => (
                       <motion.img
                         key={i}
-                        src={image}
+                        src={image.src}
                         alt={`${project.title} screenshot ${i + 1}`}
                         whileHover={{ scale: 1.05 }}
                         transition={{ duration: 0.2 }}
-                        onClick={() => setExpandedImage(image)}
-                        style={{ transform: image.includes("enclouden_2") ? "scaleX(-1)" : "none" }}
+                        onClick={() => setExpandedImage(image.src)}
+                        style={{ transform: image.flipped ? "scaleX(-1)" : "none" }}
                         className="w-full h-24 object-cover rounded-lg border border-border cursor-pointer"
                       />
                     ))}
@@ -182,22 +204,13 @@ export default function Projects() {
 
       <AnimatePresence>
         {expandedImage && (() => {
-          // Find current project and image index
-          let currentProject: typeof projects[0] | null = null;
-          let currentIndex = 0;
+          const context = findImageContext(expandedImage);
+          if (!context) return null;
           
-          for (const project of projects) {
-            if (project.images && project.images.includes(expandedImage)) {
-              currentProject = project;
-              currentIndex = project.images.indexOf(expandedImage);
-              break;
-            }
-          }
-          
-          if (!currentProject) return null;
-          
-          const canGoLeft = currentIndex > 0;
-          const canGoRight = currentIndex < currentProject.images.length - 1;
+          const { project, index } = context;
+          const canGoLeft = index > 0;
+          const canGoRight = index < project.images.length - 1;
+          const currentImage = project.images[index];
           
           return (
             <motion.div
@@ -227,7 +240,7 @@ export default function Projects() {
                   exit={{ opacity: 0, x: -20 }}
                   onClick={(e) => {
                     e.stopPropagation();
-                    setExpandedImage(currentProject.images[currentIndex - 1]);
+                    setExpandedImage(project.images[index - 1].src);
                   }}
                   className="absolute left-4 p-3 bg-white/10 hover:bg-white/20 rounded-full transition-colors z-10"
                 >
@@ -242,7 +255,7 @@ export default function Projects() {
                 key={expandedImage}
                 src={expandedImage}
                 alt="Expanded view"
-                style={{ transform: expandedImage?.includes("enclouden_2") ? "scaleX(-1)" : "none" }}
+                style={{ transform: currentImage.flipped ? "scaleX(-1)" : "none" }}
                 className="max-w-full max-h-[90vh] object-contain rounded-lg"
                 onClick={(e) => e.stopPropagation()}
               />
@@ -254,7 +267,7 @@ export default function Projects() {
                   exit={{ opacity: 0, x: 20 }}
                   onClick={(e) => {
                     e.stopPropagation();
-                    setExpandedImage(currentProject.images[currentIndex + 1]);
+                    setExpandedImage(project.images[index + 1].src);
                   }}
                   className="absolute right-4 p-3 bg-white/10 hover:bg-white/20 rounded-full transition-colors z-10"
                 >

@@ -148,7 +148,11 @@ export default function Navigation() {
               <a
                 key={link.name}
                 href={link.href}
-                className="block text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                className={`block text-sm font-medium transition-colors ${
+                  activeSection === link.id
+                    ? "text-foreground"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {link.name}

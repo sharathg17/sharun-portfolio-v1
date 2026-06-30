@@ -89,7 +89,7 @@ export default function Hero() {
 
         <div className="grid lg:grid-cols-12 gap-y-10 lg:gap-x-12 items-end">
           <div className="lg:col-span-8">
-            <h1 className="font-heading font-medium text-[#373A40] dark:text-foreground text-[clamp(2.75rem,7vw,6rem)] leading-[1.02] tracking-[-0.04em]">
+            <h1 className="font-heading font-medium text-foreground text-[clamp(2.75rem,7vw,6rem)] leading-[1.02] tracking-[-0.04em]">
               {"Every campaign is one cell in a larger "
                 .split(" ")
                 .map((word, i) => (
