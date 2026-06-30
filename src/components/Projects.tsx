@@ -1,15 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import SectionLabel from "@/components/SectionLabel";
 import ScrollReveal from "@/components/ScrollReveal";
 import MetricCard from "@/components/MetricCard";
-import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
 const ease = [0.22, 1, 0.36, 1] as const;
-
-const basePath = process.env.NODE_ENV === 'production' ? '/sharun-portfolio-v1' : '';
 
 const projects = [
   {
@@ -24,11 +20,6 @@ const projects = [
       { icon: "users" as const, value: "30%", label: "Growth in sales lead funnel" },
       { icon: "award" as const, value: "Biocon", label: "Enterprise customer landed" },
     ],
-    images: [
-      { src: `${basePath}/images/enclouden_1.jpeg`, flipped: false },
-      { src: `${basePath}/images/enclouden_2.jpeg`, flipped: true },
-      { src: `${basePath}/images/enclouden_3.jpeg`, flipped: false },
-    ],
   },
   {
     id: "02",
@@ -41,11 +32,6 @@ const projects = [
       { icon: "target" as const, value: "35%", label: "Lead-to-opportunity conversion lift" },
       { icon: "rocket" as const, value: "Culture", label: "Promoted as core to the brand" },
       { icon: "award" as const, value: "Aditya Birla", label: "Largest customer secured" },
-    ],
-    images: [
-      { src: `${basePath}/images/corestrat_1.jpeg`, flipped: false },
-      { src: `${basePath}/images/corestrat_2.jpeg`, flipped: false },
-      { src: `${basePath}/images/corestrat_3.jpeg`, flipped: false },
     ],
   },
   {
@@ -60,60 +46,10 @@ const projects = [
       { icon: "zap" as const, value: "250+", label: "Beta users in 2 months" },
       { icon: "award" as const, value: "Cisco", label: "Converted from the beta program" },
     ],
-    images: [
-      { src: `${basePath}/images/aisepedia_1.jpeg`, flipped: false },
-      { src: `${basePath}/images/aisepedia_2.jpeg`, flipped: false },
-      { src: `${basePath}/images/aisepedia_3.jpeg`, flipped: false },
-    ],
   },
 ];
 
 export default function Projects() {
-  const [expandedImage, setExpandedImage] = useState<string | null>(null);
-
-  // Helper function to find current project and image index
-  const findImageContext = (imageSrc: string) => {
-    for (const project of projects) {
-      if (project.images) {
-        const index = project.images.findIndex(img => img.src === imageSrc);
-        if (index !== -1) {
-          return { project, index };
-        }
-      }
-    }
-    return null;
-  };
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setExpandedImage(null);
-        return;
-      }
-
-      if (!expandedImage) return;
-
-      const context = findImageContext(expandedImage);
-      if (!context) return;
-
-      const { project, index } = context;
-      
-      if (e.key === "ArrowLeft" && index > 0) {
-        setExpandedImage(project.images[index - 1].src);
-      } else if (e.key === "ArrowRight" && index < project.images.length - 1) {
-        setExpandedImage(project.images[index + 1].src);
-      }
-    };
-
-    if (expandedImage) {
-      document.addEventListener("keydown", handleKeyDown);
-    }
-
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [expandedImage]);
-
   return (
     <section id="projects" className="py-24 sm:py-32">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
@@ -161,31 +97,9 @@ export default function Projects() {
                 <p className="text-sm text-muted-foreground mb-5">
                   {project.role}
                 </p>
-                <p className="text-muted-foreground leading-relaxed max-w-xl mb-5">
+                <p className="text-muted-foreground leading-relaxed max-w-xl">
                   {project.summary}
                 </p>
-                {project.images && project.images.length > 0 && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-80px" }}
-                    transition={{ duration: 0.6, delay: index * 0.05 + 0.1, ease }}
-                    className="grid grid-cols-3 gap-2"
-                  >
-                    {project.images.map((image, i) => (
-                      <motion.img
-                        key={i}
-                        src={image.src}
-                        alt={`${project.title} screenshot ${i + 1}`}
-                        whileHover={{ scale: 1.05 }}
-                        transition={{ duration: 0.2 }}
-                        onClick={() => setExpandedImage(image.src)}
-                        style={{ transform: image.flipped ? "scaleX(-1)" : "none" }}
-                        className="w-full h-24 object-cover rounded-lg border border-border cursor-pointer"
-                      />
-                    ))}
-                  </motion.div>
-                )}
               </div>
 
               <div className="lg:col-span-5 grid gap-4">
@@ -203,83 +117,6 @@ export default function Projects() {
           ))}
         </div>
       </div>
-
-      <AnimatePresence>
-        {expandedImage && (() => {
-          const context = findImageContext(expandedImage);
-          if (!context) return null;
-          
-          const { project, index } = context;
-          const canGoLeft = index > 0;
-          const canGoRight = index < project.images.length - 1;
-          const currentImage = project.images[index];
-          
-          return (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setExpandedImage(null)}
-              className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 cursor-pointer"
-            >
-              <motion.button
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setExpandedImage(null);
-                }}
-                className="absolute top-4 right-4 p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors z-10"
-              >
-                <X className="w-6 h-6 text-white" />
-              </motion.button>
-              
-              {canGoLeft && (
-                <motion.button
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setExpandedImage(project.images[index - 1].src);
-                  }}
-                  className="absolute left-4 p-3 bg-white/10 hover:bg-white/20 rounded-full transition-colors z-10"
-                >
-                  <ChevronLeft className="w-8 h-8 text-white" />
-                </motion.button>
-              )}
-              
-              <motion.img
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                key={expandedImage}
-                src={expandedImage}
-                alt="Expanded view"
-                style={{ transform: currentImage.flipped ? "scaleX(-1)" : "none" }}
-                className="max-w-full max-h-[90vh] object-contain rounded-lg"
-                onClick={(e) => e.stopPropagation()}
-              />
-              
-              {canGoRight && (
-                <motion.button
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 20 }}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setExpandedImage(project.images[index + 1].src);
-                  }}
-                  className="absolute right-4 p-3 bg-white/10 hover:bg-white/20 rounded-full transition-colors z-10"
-                >
-                  <ChevronRight className="w-8 h-8 text-white" />
-                </motion.button>
-              )}
-            </motion.div>
-          );
-        })()}
-      </AnimatePresence>
     </section>
   );
 }
