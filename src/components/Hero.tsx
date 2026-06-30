@@ -83,7 +83,7 @@ export default function Hero() {
             transition={{ delay: 0.2, duration: 0.5 }}
             className="eyebrow text-muted-foreground"
           >
-            GTM and Positioning
+            GTM Leadership
           </motion.span>
         </motion.div>
 
